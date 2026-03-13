@@ -1,65 +1,86 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="max-w-3xl mx-auto px-6 py-20 md:py-32">
+      {/* Hero */}
+      <div className="mb-16">
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
+          post22
+        </h1>
+        <p className="text-xl md:text-2xl text-stone-600 leading-relaxed max-w-xl">
+          A simple guide for people in their twenties who feel stuck.
+        </p>
+      </div>
+
+      {/* Explanation */}
+      <div className="mb-12 space-y-4 max-w-xl">
+        <p className="text-stone-700 text-lg leading-relaxed">
+          College provides structure. Life after it usually does not.
+        </p>
+        <p className="text-stone-700 text-lg leading-relaxed">
+          post22 is a curated set of resources and steps to help rebuild
+          direction, skills, and income.
+        </p>
+      </div>
+
+      {/* CTA */}
+      <div className="mb-20">
+        <Link
+          href="/start"
+          className="inline-flex items-center gap-2 text-lg font-medium text-stone-900 border-b-2 border-stone-900 pb-0.5 hover:text-stone-600 hover:border-stone-600 transition-colors"
+        >
+          Start Here
+          <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+
+      {/* Section cards */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        {[
+          {
+            href: "/stabilize",
+            title: "Stabilize",
+            desc: "Sleep, movement, and basic structure first.",
+          },
+          {
+            href: "/career",
+            title: "Career",
+            desc: "Explore directions and talk to people.",
+          },
+          {
+            href: "/skills",
+            title: "Skills",
+            desc: "High-value skills with free learning paths.",
+          },
+          {
+            href: "/income",
+            title: "Income",
+            desc: "Freelance, remote work, and portfolios.",
+          },
+          {
+            href: "/daily",
+            title: "Daily Reset",
+            desc: "A simple daily structure to stay in motion.",
+          },
+          {
+            href: "/resources",
+            title: "Resources",
+            desc: "All curated links in one place.",
+          },
+        ].map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="block p-5 border border-stone-200 rounded-lg hover:border-stone-400 hover:bg-stone-50 transition-colors group"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <div className="font-medium text-stone-900 mb-1 group-hover:text-stone-700">
+              {item.title}
+            </div>
+            <div className="text-sm text-stone-500">{item.desc}</div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
