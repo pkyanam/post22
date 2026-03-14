@@ -1,7 +1,8 @@
 import { query, mutation } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { levelForXp, XP_PER_COMPLETION, XP_PER_REFLECTION } from "./_helpers/xp";
-import { toDateString } from "./_helpers/dates";
+import { toDateString, toISOWeekKey } from "./_helpers/dates";
+import { WEEKLY_MISSIONS } from "../lib/missions";
 
 /** Returns the current user's auth info + gamification progress, or null if unauthenticated. */
 export const getOrNull = query({
@@ -64,12 +65,58 @@ export const recalcStreakAndXP = mutation({
       .withIndex("by_userId", (q) => q.eq("userId", userId))
       .collect();
 
-    // XP
+    // XP from individual completions
     let totalXp = 0;
     for (const c of completions) {
       totalXp += XP_PER_COMPLETION;
       if (c.reflection && c.reflection.trim().length > 0) {
         totalXp += XP_PER_REFLECTION;
+      }
+    }
+
+    // XP from weekly missions: group completions by ISO week, then evaluate each mission
+    const byWeek: Record<string, typeof completions> = {};
+    for (const c of completions) {
+      const weekKey = toISOWeekKey(c.completedDate);
+      if (!byWeek[weekKey]) byWeek[weekKey] = [];
+      byWeek[weekKey].push(c);
+    }
+    for (const weekCompletions of Object.values(byWeek)) {
+      for (const mission of WEEKLY_MISSIONS) {
+        let progress = 0;
+        switch (mission.targetType) {
+          case "any_completion":
+            progress = weekCompletions.length;
+            break;
+          case "any_reflection":
+            progress = weekCompletions.filter(
+              (c) => c.reflection && c.reflection.trim().length > 0
+            ).length;
+            break;
+          case "section_completion":
+            progress = weekCompletions.filter(
+              (c) => c.sectionId === mission.targetSection
+            ).length;
+            break;
+          case "multi_section_completion": {
+            const sections = mission.targetSections ?? [];
+            progress = weekCompletions.filter((c) =>
+              sections.includes(c.sectionId)
+            ).length;
+            break;
+          }
+          case "same_day_completion": {
+            const byDay: Record<string, number> = {};
+            for (const c of weekCompletions) {
+              byDay[c.completedDate] = (byDay[c.completedDate] ?? 0) + 1;
+            }
+            progress = Math.max(0, ...Object.values(byDay));
+            break;
+          }
+        }
+        if (progress >= mission.targetValue) {
+          totalXp += mission.xpReward;
+        }
       }
     }
 

@@ -3,6 +3,23 @@ export function toDateString(epochMs: number): string {
   return new Date(epochMs).toISOString().slice(0, 10);
 }
 
+/** Returns the ISO week key ("YYYY-WXX") for a given "YYYY-MM-DD" date string. */
+export function toISOWeekKey(dateStr: string): string {
+  const date = new Date(dateStr + "T00:00:00Z");
+  const dayOfWeek = date.getUTCDay() || 7; // Mon=1 … Sun=7
+  // Thursday of this week determines the ISO year and week number
+  const thursday = new Date(date);
+  thursday.setUTCDate(date.getUTCDate() + (4 - dayOfWeek));
+  const year = thursday.getUTCFullYear();
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const jan4Day = jan4.getUTCDay() || 7;
+  const week1Monday = new Date(jan4);
+  week1Monday.setUTCDate(jan4.getUTCDate() - (jan4Day - 1));
+  const weekNum =
+    Math.floor((thursday.getTime() - week1Monday.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1;
+  return `${year}-W${String(weekNum).padStart(2, "0")}`;
+}
+
 /** Returns the Monday and Sunday of an ISO week given a weekKey like "2025-W12". */
 export function getWeekBounds(weekKey: string): { start: string; end: string } {
   const [yearStr, weekStr] = weekKey.split("-W");
