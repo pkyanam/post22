@@ -41,12 +41,12 @@ export function ReflectionInput({ assignmentId, sectionId, initialReflection, is
         onChange={(e) => { setText(e.target.value); setSaved(false); }}
         placeholder="Write a reflection… (earns bonus XP)"
         rows={3}
-        className="w-full text-sm border border-stone-200 rounded-md px-3 py-2 text-stone-700 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 resize-none"
+        className="w-full text-sm border border-stone-200 dark:border-stone-700 rounded-md px-3 py-2 bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 resize-none"
       />
       <button
         onClick={handleSave}
         disabled={saving}
-        className="text-xs font-medium px-3 py-1.5 bg-stone-900 text-white rounded-md hover:bg-stone-700 transition-colors disabled:opacity-50"
+        className="text-xs font-medium px-3 py-1.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-md hover:bg-stone-700 dark:hover:bg-stone-300 transition-colors disabled:opacity-50"
       >
         {saving ? "Saving…" : saved ? "Saved!" : isCompleted ? "Update reflection" : "Save & complete"}
       </button>

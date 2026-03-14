@@ -27,19 +27,19 @@ export function HomeSectionCard({ href, sectionId, title, desc }: Props) {
   return (
     <Link
       href={href}
-      className="block p-5 border border-stone-200 rounded-lg hover:border-stone-400 hover:bg-stone-50 transition-colors group"
+      className="block p-5 border border-stone-200 dark:border-stone-700 rounded-lg hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors group"
     >
-      <div className="font-medium text-stone-900 mb-1 group-hover:text-stone-700">{title}</div>
-      <div className="text-sm text-stone-500 mb-3">{desc}</div>
+      <div className="font-medium text-stone-900 dark:text-stone-100 mb-1 group-hover:text-stone-700 dark:group-hover:text-stone-300">{title}</div>
+      <div className="text-sm text-stone-500 dark:text-stone-400 mb-3">{desc}</div>
       {isAuthenticated && (
         <div className="flex items-center gap-2">
-          <div className="flex-1 h-1 bg-stone-200 rounded-full overflow-hidden">
+          <div className="flex-1 h-1 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-stone-600 rounded-full transition-all"
+              className="h-full bg-stone-600 dark:bg-stone-400 rounded-full transition-all"
               style={{ width: `${pct}%` }}
             />
           </div>
-          <span className="text-xs text-stone-400">{done}/{total}</span>
+          <span className="text-xs text-stone-400 dark:text-stone-500">{done}/{total}</span>
         </div>
       )}
     </Link>

@@ -30,15 +30,15 @@ function SectionGrid() {
           <Link
             key={s.id}
             href={s.href}
-            className="block border border-stone-200 rounded-lg p-4 hover:border-stone-400 hover:bg-stone-50 transition-colors"
+            className="block border border-stone-200 dark:border-stone-700 rounded-lg p-4 hover:border-stone-400 dark:hover:border-stone-500 hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-stone-800">{s.label}</span>
-              <span className="text-xs text-stone-500">{done}/{total}</span>
+              <span className="text-sm font-medium text-stone-800 dark:text-stone-200">{s.label}</span>
+              <span className="text-xs text-stone-500 dark:text-stone-400">{done}/{total}</span>
             </div>
-            <div className="h-1.5 bg-stone-200 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-stone-700 rounded-full transition-all"
+                className="h-full bg-stone-700 dark:bg-stone-400 rounded-full transition-all"
                 style={{ width: `${pct}%` }}
               />
             </div>
@@ -55,9 +55,9 @@ export function Dashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="text-center py-16 text-stone-500">
+      <div className="text-center py-16 text-stone-500 dark:text-stone-400">
         <p>Sign in to view your dashboard.</p>
-        <Link href="/signin" className="mt-4 inline-block text-stone-900 font-medium underline">
+        <Link href="/signin" className="mt-4 inline-block text-stone-900 dark:text-stone-100 font-medium underline">
           Sign in with Google
         </Link>
       </div>
@@ -65,7 +65,7 @@ export function Dashboard() {
   }
 
   if (!user) {
-    return <div className="text-stone-400 text-sm">Loading…</div>;
+    return <div className="text-stone-400 dark:text-stone-500 text-sm">Loading…</div>;
   }
 
   const levelIndex = Math.min(user.level - 1, LEVEL_NAMES.length - 1);
@@ -79,27 +79,27 @@ export function Dashboard() {
   return (
     <div className="space-y-10">
       {/* Level card */}
-      <div className="border border-stone-200 rounded-xl p-6">
+      <div className="border border-stone-200 dark:border-stone-700 rounded-xl p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <p className="text-sm text-stone-500">Level {user.level}</p>
-            <h2 className="text-2xl font-semibold text-stone-900">{levelName}</h2>
+            <p className="text-sm text-stone-500 dark:text-stone-400">Level {user.level}</p>
+            <h2 className="text-2xl font-semibold text-stone-900 dark:text-stone-100">{levelName}</h2>
           </div>
           {user.streak > 0 && (
             <div className="text-right">
               <span className="text-2xl">🔥</span>
-              <p className="text-sm text-stone-600 font-medium">{user.streak}-day streak</p>
+              <p className="text-sm text-stone-600 dark:text-stone-400 font-medium">{user.streak}-day streak</p>
             </div>
           )}
         </div>
         <div className="space-y-1">
-          <div className="flex justify-between text-xs text-stone-500">
+          <div className="flex justify-between text-xs text-stone-500 dark:text-stone-400">
             <span>{user.totalXp} XP total</span>
             <span>{xpInLevel}/{xpNeeded} to next level</span>
           </div>
-          <div className="h-2 bg-stone-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-stone-700 rounded-full transition-all"
+              className="h-full bg-stone-700 dark:bg-stone-400 rounded-full transition-all"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -108,7 +108,7 @@ export function Dashboard() {
 
       {/* Section progress */}
       <div>
-        <h2 className="text-lg font-semibold text-stone-900 mb-4">Progress by Section</h2>
+        <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100 mb-4">Progress by Section</h2>
         <SectionGrid />
       </div>
 
