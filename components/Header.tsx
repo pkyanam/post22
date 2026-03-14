@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useConvexAuth } from "convex/react";
+import { useAuthActions } from "@convex-dev/auth/react";
+import { GamificationBar } from "./GamificationBar";
 
 const navLinks = [
   { href: "/start", label: "Start" },
@@ -12,21 +15,26 @@ const navLinks = [
   { href: "/income", label: "Income" },
   { href: "/daily", label: "Daily" },
   { href: "/resources", label: "Resources" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useConvexAuth();
+  const { signOut } = useAuthActions();
 
   return (
     <header className="border-b border-stone-200 bg-white">
-      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-stone-900 font-semibold text-lg tracking-tight hover:text-stone-600 transition-colors">
+      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+        <Link href="/" className="text-stone-900 font-semibold text-lg tracking-tight hover:text-stone-600 transition-colors flex-shrink-0">
           post22
         </Link>
 
+        <GamificationBar />
+
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-5 flex-shrink-0">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -40,6 +48,18 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          {isAuthenticated ? (
+            <button
+              onClick={() => signOut()}
+              className="text-sm text-stone-400 hover:text-stone-700 transition-colors"
+            >
+              Sign out
+            </button>
+          ) : (
+            <Link href="/signin" className="text-sm text-stone-500 hover:text-stone-800 transition-colors">
+              Sign in
+            </Link>
+          )}
         </nav>
 
         {/* Mobile menu button */}
@@ -78,6 +98,22 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            {isAuthenticated ? (
+              <button
+                onClick={() => { signOut(); setMenuOpen(false); }}
+                className="py-2 text-sm text-left text-stone-400 hover:text-stone-700 transition-colors"
+              >
+                Sign out
+              </button>
+            ) : (
+              <Link
+                href="/signin"
+                onClick={() => setMenuOpen(false)}
+                className="py-2 text-sm text-stone-500 hover:text-stone-800 transition-colors"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </nav>
       )}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HomeSectionCard } from "@/components/HomeSectionCard";
 
 export default function Home() {
   return (
@@ -37,49 +38,43 @@ export default function Home() {
 
       {/* Section cards */}
       <div className="grid gap-4 sm:grid-cols-2">
-        {[
-          {
-            href: "/stabilize",
-            title: "Stabilize",
-            desc: "Sleep, movement, and basic structure first.",
-          },
-          {
-            href: "/career",
-            title: "Career",
-            desc: "Explore directions and talk to people.",
-          },
-          {
-            href: "/skills",
-            title: "Skills",
-            desc: "High-value skills with free learning paths.",
-          },
-          {
-            href: "/income",
-            title: "Income",
-            desc: "Freelance, remote work, and portfolios.",
-          },
-          {
-            href: "/daily",
-            title: "Daily Reset",
-            desc: "A simple daily structure to stay in motion.",
-          },
-          {
-            href: "/resources",
-            title: "Resources",
-            desc: "All curated links in one place.",
-          },
-        ].map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="block p-5 border border-stone-200 rounded-lg hover:border-stone-400 hover:bg-stone-50 transition-colors group"
-          >
-            <div className="font-medium text-stone-900 mb-1 group-hover:text-stone-700">
-              {item.title}
-            </div>
-            <div className="text-sm text-stone-500">{item.desc}</div>
-          </Link>
-        ))}
+        <HomeSectionCard
+          href="/stabilize"
+          sectionId="stabilize"
+          title="Stabilize"
+          desc="Sleep, movement, and basic structure first."
+        />
+        <HomeSectionCard
+          href="/career"
+          sectionId="career"
+          title="Career"
+          desc="Explore directions and talk to people."
+        />
+        <HomeSectionCard
+          href="/skills"
+          sectionId="skills"
+          title="Skills"
+          desc="High-value skills with free learning paths."
+        />
+        <HomeSectionCard
+          href="/income"
+          sectionId="income"
+          title="Income"
+          desc="Freelance, remote work, and portfolios."
+        />
+        <HomeSectionCard
+          href="/daily"
+          sectionId="daily"
+          title="Daily Reset"
+          desc="A simple daily structure to stay in motion."
+        />
+        <Link
+          href="/resources"
+          className="block p-5 border border-stone-200 rounded-lg hover:border-stone-400 hover:bg-stone-50 transition-colors group"
+        >
+          <div className="font-medium text-stone-900 mb-1 group-hover:text-stone-700">Resources</div>
+          <div className="text-sm text-stone-500">All curated links in one place.</div>
+        </Link>
       </div>
     </div>
   );
