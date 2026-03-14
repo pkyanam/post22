@@ -16,11 +16,11 @@ export default function SignInPage() {
 
   return (
     <div className="max-w-sm mx-auto px-6 py-32 text-center">
-      <h1 className="text-2xl font-semibold text-stone-900 mb-2">Sign in to post22</h1>
-      <p className="text-stone-500 mb-8">Track your progress, earn XP, and build streaks.</p>
+      <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-100 mb-2">Sign in to post22</h1>
+      <p className="text-stone-500 dark:text-stone-400 mb-8">Track your progress, earn XP, and build streaks.</p>
       <button
         onClick={() => signIn("google")}
-        className="w-full flex items-center justify-center gap-3 px-5 py-3 border border-stone-300 rounded-lg text-stone-800 font-medium hover:bg-stone-50 hover:border-stone-400 transition-colors"
+        className="w-full flex items-center justify-center gap-3 px-5 py-3 border border-stone-300 dark:border-stone-600 rounded-lg text-stone-800 dark:text-stone-200 font-medium hover:bg-stone-50 dark:hover:bg-stone-800 hover:border-stone-400 dark:hover:border-stone-500 transition-colors"
       >
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <path d="M17.64 9.2c0-.638-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>

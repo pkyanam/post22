@@ -20,12 +20,12 @@ export function GamificationBar() {
   const pct = Math.min(100, Math.round((xpInLevel / xpNeeded) * 100));
 
   return (
-    <div className="flex items-center gap-3 text-xs text-stone-500">
-      <span className="hidden sm:inline font-medium text-stone-700">{levelName}</span>
+    <div className="flex items-center gap-3 text-xs text-stone-500 dark:text-stone-400">
+      <span className="hidden sm:inline font-medium text-stone-700 dark:text-stone-300">{levelName}</span>
       <div className="hidden sm:flex items-center gap-1.5">
-        <div className="w-20 h-1.5 bg-stone-200 rounded-full overflow-hidden">
+        <div className="w-20 h-1.5 bg-stone-200 dark:bg-stone-700 rounded-full overflow-hidden">
           <div
-            className="h-full bg-stone-700 rounded-full transition-all"
+            className="h-full bg-stone-700 dark:bg-stone-400 rounded-full transition-all"
             style={{ width: `${pct}%` }}
           />
         </div>

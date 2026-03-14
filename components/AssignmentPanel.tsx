@@ -23,15 +23,15 @@ export function AssignmentPanel({ sectionId }: { sectionId: string }) {
 
   if (!isAuthenticated) {
     return (
-      <div className="mt-10 border-t border-stone-100 pt-8">
-        <p className="text-sm text-stone-400 italic">Sign in to track assignments and earn XP.</p>
+      <div className="mt-10 border-t border-stone-100 dark:border-stone-800 pt-8">
+        <p className="text-sm text-stone-400 dark:text-stone-500 italic">Sign in to track assignments and earn XP.</p>
       </div>
     );
   }
 
   return (
-    <div className="mt-10 border-t border-stone-100 pt-8">
-      <h2 className="text-lg font-semibold text-stone-900 mb-4">Assignments</h2>
+    <div className="mt-10 border-t border-stone-100 dark:border-stone-800 pt-8">
+      <h2 className="text-lg font-semibold text-stone-900 dark:text-stone-100 mb-4">Assignments</h2>
       <div className="space-y-3">
         {assignments.map((a) => {
           const done = completedIds.has(a.id);
@@ -42,7 +42,9 @@ export function AssignmentPanel({ sectionId }: { sectionId: string }) {
             <div
               key={a.id}
               className={`border rounded-lg transition-colors ${
-                done ? "border-stone-300 bg-stone-50" : "border-stone-200 bg-white"
+                done
+                  ? "border-stone-300 dark:border-stone-600 bg-stone-50 dark:bg-stone-800/50"
+                  : "border-stone-200 dark:border-stone-700 bg-white dark:bg-transparent"
               }`}
             >
               <div className="flex items-start gap-3 p-4">
@@ -55,8 +57,8 @@ export function AssignmentPanel({ sectionId }: { sectionId: string }) {
                   }
                   className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
                     done
-                      ? "bg-stone-700 border-stone-700"
-                      : "border-stone-300 hover:border-stone-500"
+                      ? "bg-stone-700 dark:bg-stone-400 border-stone-700 dark:border-stone-400"
+                      : "border-stone-300 dark:border-stone-600 hover:border-stone-500 dark:hover:border-stone-400"
                   }`}
                   aria-label={done ? "Mark incomplete" : "Mark complete"}
                 >
@@ -73,14 +75,14 @@ export function AssignmentPanel({ sectionId }: { sectionId: string }) {
                     <button
                       onClick={() => setExpanded(open ? null : a.id)}
                       className={`text-left text-sm font-medium ${
-                        done ? "text-stone-400 line-through" : "text-stone-800"
-                      } hover:text-stone-600 transition-colors`}
+                        done ? "text-stone-400 dark:text-stone-500 line-through" : "text-stone-800 dark:text-stone-200"
+                      } hover:text-stone-600 dark:hover:text-stone-400 transition-colors`}
                     >
                       {a.title}
                     </button>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className="text-xs text-stone-400">{a.deadlineHint}</span>
-                      <span className="text-xs font-medium bg-stone-100 text-stone-600 px-2 py-0.5 rounded-full">
+                      <span className="text-xs text-stone-400 dark:text-stone-500">{a.deadlineHint}</span>
+                      <span className="text-xs font-medium bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2 py-0.5 rounded-full">
                         +{a.xp} XP
                       </span>
                     </div>
@@ -88,7 +90,7 @@ export function AssignmentPanel({ sectionId }: { sectionId: string }) {
 
                   {open && (
                     <div className="mt-2">
-                      <p className="text-sm text-stone-500">{a.description}</p>
+                      <p className="text-sm text-stone-500 dark:text-stone-400">{a.description}</p>
                       <ReflectionInput
                         assignmentId={a.id}
                         sectionId={sectionId}
